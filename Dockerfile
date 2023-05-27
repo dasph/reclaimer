@@ -7,6 +7,5 @@ WORKDIR /app
 ADD . /app
 
 RUN deno cache mod.ts
-RUN deno task build
 
-CMD ./dist/reclaimer
+CMD ["deno", "task", "run"]
