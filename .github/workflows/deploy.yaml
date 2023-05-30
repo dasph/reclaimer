@@ -37,9 +37,11 @@ jobs:
 
     - name: Build and Push Container 🏗️
       run: |-
-        IMAGE=${{ vars.LOCATION }}-docker.pkg.dev/${{ vars.PROJECT }}/${{ vars.REPOSITORY }}/${{ vars.SERVICE }}:${{ github.sha }}
+        REPO=${{ vars.LOCATION }}-docker.pkg.dev/${{ vars.PROJECT }}/${{ vars.REPOSITORY }}/${{ vars.SERVICE }}
+        IMAGE=$REPO:${{ github.sha }}
         docker build -t $IMAGE ./
-        docker push $IMAGE
+        docker tag $IMAGE $REPO:latest
+        docker push $REPO:latest
 
     - name: Cleanup Google Artifact Registry 🧹
       run: |-
